@@ -4,6 +4,8 @@
 #include <list>
 #include <string>
 #include <sstream>
+#include <map>
+#include <set>
 
 namespace vsite::oop::v9
 {
@@ -15,7 +17,7 @@ namespace vsite::oop::v9
     unsigned unique_numbers(std::istream& input);
 
     class word_frequency {
-        std::vector<std::pair<std::string, unsigned>> freq;
+        std::map<std::string, unsigned> word_count; 
     public:
         word_frequency(std::istream& input);
         unsigned count() const;

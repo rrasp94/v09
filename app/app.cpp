@@ -36,47 +36,39 @@ namespace vsite::oop::v9
     }
 
     unsigned unique_numbers(std::istream& input) {
-        std::vector<int> numbers;
+        std::set<int> numbers;  
         int number;
 
         while (input >> number) {
-            if (std::find(numbers.begin(), numbers.end(), number) == numbers.end()) {
-                numbers.push_back(number);
-            }
+            numbers.insert(number);  
         }
         return numbers.size();
     }
 
     word_frequency::word_frequency(std::istream& input) {
-        std::map<std::string, unsigned> word_count;
         std::string word;
 
         while (input >> word) {
             for (char& c : word) {
-                c = std::tolower(c); 
+                c = std::tolower(c);
             }
             word.erase(std::remove_if(word.begin(), word.end(), [](char c) {
                 return !std::isalpha(static_cast<unsigned char>(c));
                 }), word.end());
 
             if (!word.empty()) {
-                ++word_count[word];
+                ++word_count[word];  
             }
         }
-
-        freq.assign(word_count.begin(), word_count.end());
     }
 
     unsigned word_frequency::count() const {
-        return freq.size();
+        return word_count.size();  
     }
 
     unsigned word_frequency::frequency(const std::string& word) const {
-        auto it = std::find_if(freq.begin(), freq.end(),
-            [&word](const std::pair<std::string, unsigned>& p) {
-                return p.first == word;
-            });
-        return (it != freq.end()) ? it->second : 0;
+        auto it = word_count.find(word);
+        return (it != word_count.end()) ? it->second : 0;  
     }
 }
 
